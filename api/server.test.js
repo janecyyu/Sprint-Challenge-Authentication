@@ -106,5 +106,18 @@ describe("server", () => {
           done();
         });
     });
+    it("response with json", function (done) {
+      return supertest(server)
+        .post("/api/auth/login")
+        .send({
+          username: "Mary",
+          password: "123",
+        })
+        .expect("Content-Type", /json/)
+        .end(function (err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
   });
 });
