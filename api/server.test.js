@@ -72,19 +72,16 @@ describe("server", () => {
           done();
         });
     });
-    // it("should correct length of user list", async () => {
-    //   await model.add({ name: "Sheldon" });
+    it("should correct length of user list", async () => {
+      await model.add({
+        username: makeName(6),
+        password: "123",
+      });
 
-    //   // read data from the table
-    //   const users = await db("users");
-    //   let amount = users.length;
-    //   expect(users).toHaveLength(amount);
-    // });
-    // it("should return true when add new user", async () => {
-    //   await model.add({ name: "Mary" });
-    //   // read data from the table
-    //   const users = await db("users");
-    //   expect(users[users.length - 1]).toBeTruthy();
-    // });
+      // read data from the table
+      const users = await db("users");
+      let amount = users.length;
+      expect(users).toHaveLength(amount);
+    });
   });
 });
