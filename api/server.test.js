@@ -14,6 +14,9 @@ function makeName(length) {
   return result;
 }
 
+let token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoyLCJ1c2VybmFtZSI6Ik1hcnkiLCJpYXQiOjE1OTAxNjQ1OTUsImV4cCI6MTU5MDI1MDk5NX0.O1TTmJlyOKwszir3Wp8LWHgjlO95tbn7h8j1uQTO5wU";
+
 describe("server", () => {
   it("can run", () => {
     expect(true).toBeTruthy();
@@ -41,23 +44,27 @@ describe("server", () => {
         });
     });
   });
+
   describe("GET /api/jokes", () => {
-    // it("should return an array", () => {
-    //   return supertest(server)
-    //     .get("/api/jokes")
-    //     .then((res) => {
-    //       expect(Array.isArray(res.body)).toBe(true);
-    //     });
-    // });
-    // it("should return correct first user", () => {
-    //   return supertest(server)
-    //     .get("/users")
-    //     .then((res) => {
-    //       const testItem = { id: 1, name: "sam" };
-    //       expect(res.body[0]).toEqual(testItem);
-    //     });
-    // });
+    it("return 200 OK", function (done) {
+      supertest(server)
+        .get("/api/jokes")
+        .set("Authorization", token)
+        // .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+    it("responds with json", function (done) {
+      supertest(server)
+        .get("/api/jokes")
+        .set("Authorization", token)
+        .expect("Content-Type", /json/)
+        .end(function (err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
   });
+
   describe("POST /api/auth/register", () => {
     it("return 201 created", function (done) {
       return supertest(server)
@@ -84,6 +91,7 @@ describe("server", () => {
       expect(users).toHaveLength(amount);
     });
   });
+
   describe("POST /api/auth/login", () => {
     it("return 200 OK", function (done) {
       return supertest(server)
