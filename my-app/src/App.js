@@ -22,7 +22,7 @@ function App() {
       </Link>
       <br />
       <Link className="users-btn" to="/users">
-        User list
+        Joke list
       </Link>
       <br />
       <Link to="/logout">Logout</Link>
