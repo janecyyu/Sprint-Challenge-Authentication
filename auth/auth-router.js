@@ -16,7 +16,7 @@ router.post("/register", (req, res) => {
     Users.add(credentials)
       .then((user) => {
         const token = generateToken(user);
-        //req.session.loggedIn = true;
+        req.session.loggedIn = true;
         res.status(201).json({
           id: user.id,
           username: user.username,
@@ -43,8 +43,8 @@ router.post("/login", (req, res) => {
         // check that passwords match
         if (user && bcryptjs.compareSync(password, user.password)) {
           //save info about client inside the session(req.session)
-          // req.session.loggedIn = true;
-          // req.session.user = user;
+          req.session.loggedIn = true;
+          req.session.user = user;
           //produce sign and send the token
           const token = generateToken(user);
 
