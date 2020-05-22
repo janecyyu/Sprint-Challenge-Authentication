@@ -84,4 +84,19 @@ describe("server", () => {
       expect(users).toHaveLength(amount);
     });
   });
+  describe("POST /api/auth/login", () => {
+    it("return 200 OK", function (done) {
+      return supertest(server)
+        .post("/api/auth/login")
+        .send({
+          username: "Mary",
+          password: "123",
+        })
+        .expect(200)
+        .end(function (err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
+  });
 });
